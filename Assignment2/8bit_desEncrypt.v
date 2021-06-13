@@ -1,4 +1,4 @@
-module f (input [5:0] key, input [3:0] msg, output [3:0] fout_per);
+module f(input [5:0] key, input [3:0] msg, output [3:0] fout_per);
     wire [5:0] emsg; 
     wire [3:0] fout_per;
     wire [5:0] emsg_enc;
