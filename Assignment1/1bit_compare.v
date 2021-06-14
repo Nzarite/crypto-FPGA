@@ -2,13 +2,10 @@ module comp_1bit(input a,b,output L,G,E);
 reg L,G,E;
 always @(*)
 begin 
-L=0;G=0;E=0;
-if(a<b) L<=1;
-//$display("less=1 greater=0 equal=0");
-if(a>b) G<=1;
-//$display("less=0 greater=1 equal=0");
-if(a==b) E<=1;
-//$display("less=0 greater=0 equal=1");
+    L=0;G=0;E=0;
+    if(a<b) L<=1;
+    if(a>b) G<=1;
+    if(a==b) E<=1;
 end
 endmodule
 
