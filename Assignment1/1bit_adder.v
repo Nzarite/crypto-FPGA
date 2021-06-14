@@ -17,7 +17,7 @@ module q1_tb();
     initial begin
     $display("s c_in");
 
-    a=1'b0;   b=1'b0;   c0=1'b0;
+    a=1'b0;   b=1'b0;  c0=1'b0;
     #20
     $display("%b %b",s,c1); 
 

@@ -63,5 +63,6 @@ module top_module ();
         A=8'b01010101; B=8'b10101010; C=1'b0;
         #1
         $display("%b %b %b    %b %b",A,B,C,S,C1);
+        
     end
 endmodule

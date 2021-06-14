@@ -33,7 +33,7 @@ module comp_8bit(input [7:0] a,b,output [7:0] l,g,e);
     always @(*) begin
         #1 
         if(l[7]==1)
-              $display("less=1 greater=0 equal=0 %d %d",a,b);
+            $display("less=1 greater=0 equal=0 %d %d",a,b);
         else if(g[7]==1)
               $display("less=0 greater=1 equal=0 %d %d",a,b);
         else if(l[6]==1)
