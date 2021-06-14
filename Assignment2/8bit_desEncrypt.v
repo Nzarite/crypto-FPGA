@@ -1,23 +1,28 @@
 module f(input [5:0] key, input [3:0] msg, output [3:0] fout_per);
+
     wire [5:0] emsg; 
     wire [3:0] fout_per;
     wire [5:0] emsg_enc;
     wire [3:0] fout;
+
     assign emsg[5]=msg[3];
     assign emsg[4]=msg[2];
     assign emsg[3]=msg[2];
     assign emsg[2]=msg[1];
     assign emsg[1]=msg[1];
     assign emsg[0]=msg[0];
+
     assign emsg_enc= key^emsg;
+
     assign fout=SBOX(emsg_enc);
     assign fout_per[3]=fout[2];
     assign fout_per[2]=fout[1];
     assign fout_per[1]=fout[3];
     assign fout_per[0]=fout[0];
 
-    function [3:0] SBOX (input [5:0] B);
-        reg [1:0] i; reg [3:0] j;
+    function [3:0] SBOX(input [5:0] B);
+        reg [1:0] i; 
+		reg [3:0] j;
         reg [3:0] S1[3:0][15:0];
         begin
             S1[0][0] = 14;
@@ -91,24 +96,28 @@ module f(input [5:0] key, input [3:0] msg, output [3:0] fout_per);
     	end
     endfunction
 endmodule
-module des (input [7:0] msg, input [5:0] key,output [7:0] cipher);
-    wire [3:0] l0,r0,l1,r1,fout;
+module des (input[7:0] msg, input[5:0] key,output[7:0] cipher);
+
+    wire[3:0] l0,r0,l1,r1,fout;
+
     assign l0=msg[7:4];
     assign r0=msg[3:0];
     assign l1=r0;
+	
     f start(key,r0,fout);
-        assign r1=l1^fout;
+        assign r1=l0^fout;
         assign cipher[7:0] = {l1[3:0],r1[3:0]};
 endmodule
 module test_bench();
-    reg [7:0] msg;
-    reg [5:0] key;
-    wire [7:0] cipher;
+    reg[7:0] msg;
+    reg[5:0] key;
+    wire[7:0] cipher;
     des start(msg,key,cipher);
         initial begin
-			msg=8'b1000_1101;
-			key=6'b101010;
+			msg=8'b0101_0000;
+			key=6'b000000;
 			#1
 			$display("cipher = %b",cipher);
+			$finish;
     	end
 endmodule
