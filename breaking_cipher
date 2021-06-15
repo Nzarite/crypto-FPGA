@@ -1,0 +1,45 @@
+Crypto FPGA
+Assignment 2
+LEVEL 1
+
+Encrypted Text:
+
+    To break the djqifs ublf dnqemu qh 32 ohwwhuv dqg wxevx wlmjxnsl jfhm
+    qjyzkx rklzcgxkz jfjspjhstg eqbpqv milq kuxlt kh jx kwyexd oaelw ez esp
+    mwzow zgynqd Efneg jvgu oybqy biapsf 4 Hwt ephhldgs yi Vubysyjo Afevj
+    53724
+
+Solution:
+
+We have shifted the letters and numbers of the encrypted message by n, 
+the value of n is increased by 1 after every 10 letters.
+
+It goes in this way -
+
+To break the 
++1: cipher take 
++2: blocks of 10
++3: letters and
++4: start shift
++5: ing each let
++6: ter leftwar
++7: ds cyclical
++8: ly within ea
++9: ch block by a
++10: n amount equ
++11: al to the blo
++12: ck number St
++13: art with blo
++14: ck number 0
++15: The password 
++16: is Felicity 
++17: Jones 86057
+
+To break the cipher take blocks of 10 letters and start shifting each letter 
+leftwards cyclically within each block by an amount equal to the block number 
+Start with block number 0 The password is Felicity Jones 86057
+______________________________________________
+
+AHMED NABEEL
+YASH DAHIYA
+AKSHIT SINGH CHAUHAN
