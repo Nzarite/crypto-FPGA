@@ -1,3 +1,8 @@
+/*
+	Crypto FPGA
+	Assignment 2
+	LEVEL 3
+*/
 module f(input [5:0] key, input [3:0] msg, output [3:0] fout_per);
 
     wire [5:0] emsg; 
@@ -114,8 +119,8 @@ module test_bench();
     wire[7:0] cipher;
     des start(msg,key,cipher);
         initial begin
-			msg=8'b0101_0000;
-			key=6'b000000;
+			msg=8'b1100_0000;
+			key=6'b101010;
 			#1
 			$display("cipher = %b",cipher);
 			$finish;

@@ -1,0 +1,32 @@
+Crypto FPGA
+
+Assignment 2
+LEVEL 2
+
+https://drive.google.com/file/d/10IqbqTibA9lZhsx72y_AQy37aaakkznh/view?usp=sharing 
+
+You can be fooled by what you see. 
+Each word, and by extension, the entire file says something.
+What to do when you reach the end of the file? 
+Most Probably 3 or 4 will figure out.
+
+Solution:
+
+This was largely a fun level. The hints and their meanings were as follows:
+
+“You can be fooled by what you see” : What you saw in the text file will not make much sense as of now.As a matter of fact,  you don’t require to analyse the text.
+
+“…by extension, the entire file says something”: by extension was a hint to change the extension of the file in order that it says something.
+
+“…end of the file”: the downloaded file was named “file.txt”.  When you reach the end of the file meant when you reach “.txt” you have to do something.
+
+“Most Probably 3 or 4 will figure out”:  written in capital letters to suggest that you had to abbreviate them.The abbreviations are MP3 and MP4. And this is the extension that had to be added at the end of  “file” in “file.txt” in order to figure out what was going on.
+
+The file was an audio file with a morse code. The morse code sadly read:
+
+College Nahi Khulega
+———————————————————————————————————————————————
+
+YASH DAHIYA
+AHMED NABEEL
+AKSHIT SINGH CHAUHAN
