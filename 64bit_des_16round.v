@@ -1,4 +1,4 @@
-module ip(input[64:1] msg, output [64:1] ip_msg);
+module ip(input[1:64] msg, output [1:64] ip_msg);
     assign ip_msg[1] = msg[58];
     assign ip_msg[2] = msg[50];
     assign ip_msg[3] = msg[42];
@@ -65,7 +65,7 @@ module ip(input[64:1] msg, output [64:1] ip_msg);
     assign ip_msg[64] = msg[7];
 endmodule
 
-module ip_inverse(input[64:1] msg, output [64:1] ipin_msg);
+module ip_inverse(input[1:64] msg, output [1:64] ipin_msg);
     assign ipin_msg[1] = msg[40];
     assign ipin_msg[2] = msg[8];
     assign ipin_msg[3] = msg[48];
@@ -132,7 +132,7 @@ module ip_inverse(input[64:1] msg, output [64:1] ipin_msg);
     assign ipin_msg[64] = msg[25];
 endmodule
 
-module e(input[32:1] msg_r, output [48:1] emsg_r);
+module e(input[1:32] msg_r, output [1:48] emsg_r);
     assign emsg_r[1] = msg_r[32];
     assign emsg_r[2] = msg_r[1];
     assign emsg_r[3] = msg_r[2];
@@ -183,7 +183,7 @@ module e(input[32:1] msg_r, output [48:1] emsg_r);
     assign emsg_r[48] = msg_r[1];
 endmodule
 
-module p_sbox(input[32:1] msg, output [32:1] p_msg);
+module p_sbox(input[1:32] msg, output [1:32] p_msg);
     assign p_msg[1] = msg[16];
     assign p_msg[2] = msg[7];
     assign p_msg[3] = msg[20];
@@ -743,7 +743,7 @@ module s_box(input[6:1] B, input[3:0] s_box_id, output reg [4:1] SBOX);
     assign S8[3][14] = 6;
     assign S8[3][15] = 11;
 
-    assign i[2:1] = {B[6],B[1]};
+    assign i[2:1] = {B[6], B[1]};
     assign j[4:1] = B[5:2];
 
     always @(*) begin
@@ -760,9 +760,9 @@ module s_box(input[6:1] B, input[3:0] s_box_id, output reg [4:1] SBOX);
     end
 endmodule
 
-module f(input[32:1] msg_r, input[48:1] key, output[32:1] f_out);
-    wire[48:1] temp,emsg_r;
-    wire[32:1] temp_s_box;
+module f(input[1:32] msg_r, input[1:48] key, output[1:32] f_out);
+    wire[1:48] temp,emsg_r;
+    wire[1:32] temp_s_box;
     wire[4:1] s_box1,s_box2,s_box3,s_box4,s_box5,s_box6,s_box7,s_box8;
     wire [5:0] B1,B2,B3,B4,B5,B6,B7,B8;
 
@@ -770,14 +770,14 @@ module f(input[32:1] msg_r, input[48:1] key, output[32:1] f_out);
 
     assign temp = key ^ emsg_r;
 
-    assign B8 = temp[48:43];
-    assign B7 = temp[42:37];
-    assign B6 = temp[36:31];
-    assign B5 = temp[30:25];
-    assign B4 = temp[24:19];
-    assign B3 = temp[18:13];
-    assign B2 = temp[12:7];
-    assign B1 = temp[6:1];
+    assign B8 = temp[43:48];
+    assign B7 = temp[37:42];
+    assign B6 = temp[31:36];
+    assign B5 = temp[25:30];
+    assign B4 = temp[19:24];
+    assign B3 = temp[13:18];
+    assign B2 = temp[7:12];
+    assign B1 = temp[1:6];
 
     s_box s1(B1, 4'd1, s_box1);
     s_box s2(B2, 4'd2, s_box2);
@@ -802,16 +802,16 @@ module f(input[32:1] msg_r, input[48:1] key, output[32:1] f_out);
     // end
 endmodule
 
-module des(input[64:1]msg, input[48:1] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16, output[64:1]cipher);
-    wire[32:1] msg_l[16:0], msg_r[16:0];
-    wire[64:1] ip_msg;
-    wire[64:1] out_msg;
-    wire[32:1] fout[16:1];
-    wire[32:1] r_msg;
+module des(input[1:64]msg, input[1:48] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16, output[1:64]cipher);
+    wire[1:32] msg_l[16:0], msg_r[16:0];
+    wire[1:64] ip_msg;
+    wire[1:64] out_msg;
+    wire[1:32] fout[16:1];
+    wire[1:32] r_msg;
     
     ip start_ip(msg,ip_msg);
 
-    assign {msg_l[0],msg_r[0]} = ip_msg[64:1];
+    assign {msg_l[0],msg_r[0]} = ip_msg;
     
     assign msg_l[1] = msg_r[0];
     f start_f1(msg_r[0], k1, fout[1]);
@@ -885,8 +885,8 @@ module des(input[64:1]msg, input[48:1] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k1
         #5
         $display("msg      = %b",msg);
         $display("ip_msg   = %b",ip_msg);
-        $display("msg_r1   = %b",msg_r[1]);
-        $display("msg_l1   = %b",msg_l[1]);
+        $display("msg_l16  = %b",msg_l[16]);
+        $display("msg_r16  = %b",msg_r[16]);
         $display("key1     = %b",k1);
         $display("key16    = %b",k16);
     end
@@ -949,9 +949,8 @@ module pc_1(input [1:64] key, output [1:56] pc1);
     assign pc1[54] = key[20];
     assign pc1[55] = key[12];
     assign pc1[56] = key[4];
-
     initial begin
-    #5  $display("pc1      = %b",pc1);
+       #5 $display("key      = %b",key);
     end
 endmodule
 
@@ -1004,39 +1003,27 @@ module pc_2(input [1:56] key, output [1:48] pc2);
     assign pc2[46] = key[36];
     assign pc2[47] = key[29];
     assign pc2[48] = key[32];
-
 endmodule
 
-module shift(input[4:0] i, input[28:1] k_l_in,input[28:1] k_r_in, output reg[28:1] key_l_out,output reg[28:1] key_r_out);
-    
+module shift(input[4:0] i, input[1:28] k_l,input[1:28] k_r, output reg[1:28] key_l,output reg[1:28] key_r);
+
     always @(*) begin
-        if(i==5'd1||i==5'd2||i==5'd9||i==5'd16)begin
-            key_l_out = {k_l_in[27:1],k_l_in[28]};
-            key_r_out = {k_r_in[27:1],k_r_in[28]};
-        end
-        else begin
-            key_l_out = {k_l_in[26:1],k_l_in[28:27]};
-            key_r_out = {k_r_in[26:1],k_r_in[28:27]};
-        end
-    end  
-    // always @(*) begin
-    //     case(i)
-    //         5'd1: {key_l_out,key_r_out} = {{k_l_in[27:1],k_l_in[28]},{k_r_in[27:1],k_r_in[28]}};
-    //         5'd2: {key_l_out,key_r_out} = {{k_l_in[27:1],k_l_in[28]},{k_r_in[27:1],k_r_in[28]}};
-    //         5'd9: {key_l_out,key_r_out} = {{k_l_in[27:1],k_l_in[28]},{k_r_in[27:1],k_r_in[28]}};
-    //         5'd16:{key_l_out,key_r_out} = {{k_l_in[27:1],k_l_in[28]},{k_r_in[27:1],k_r_in[28]}};
-    //         default:{key_l_out,key_r_out} = {{k_l_in[26:1],k_l_in[28:27]},{k_r_in[26:1],k_r_in[28:27]}};
-    //     endcase
-    // end  
+        if(i==1||i==2||i==9||i==16)
+            {key_l,key_r} = {{k_l[2:28],k_l[1]},{k_r[2:28],k_r[1]}};
+        else 
+            {key_l,key_r} = {k_l[3:28],k_l[1:2],k_r[3:28],k_r[1:2]};
+    end    
 endmodule
 
-module in_key(input[64:1] key_in, output[48:1] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16);
+module in_key(input[1:64] key_in, output[1:48] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16);
 
     wire[28:1] k_l[16:0],k_r[16:0];
-    wire[56:1] pc_1;
+    wire[56:1] temp;
+    wire [1:56] x;
 
-    pc_1 start1(key_in,pc_1);
-    assign {k_l[0],k_r[0]} = pc_1;
+    pc_1 start1(key_in,temp);
+    assign {k_l[0],k_r[0]} = temp;
+    assign x = temp;
 
     shift s1(5'd1,k_l[0],k_r[0],k_l[1],k_r[1]);
     pc_2 start2({k_l[1],k_r[1]},k1);
@@ -1085,6 +1072,11 @@ module in_key(input[64:1] key_in, output[48:1] k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k1
 
     shift s16(5'd16,k_l[15],k_r[15],k_l[16],k_r[16]);
     pc_2 start17({k_l[16],k_r[16]},k16);
+
+    initial begin
+        #5 $display("pc1      = %b",temp);
+    //       $display("x        = %b",x[56]);
+    end
     
 endmodule
 
